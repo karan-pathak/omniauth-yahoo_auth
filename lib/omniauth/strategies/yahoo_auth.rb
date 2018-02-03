@@ -5,14 +5,14 @@ module OmniAuth
   module Strategies
     # Main class for Yahoo Auth Startegy
     class YahooAuth < OmniAuth::Strategies::OAuth2
-      SOCIAL_API_URL = "https://social.yahooapis.com/v1/user/"
+      SOCIAL_API_URL = 'https://social.yahooapis.com/v1/user/'
 
-      option :name, "yahoo_auth"
+      option :name, 'yahoo_auth'
 
       option :client_options, {
-        site: "https://api.login.yahoo.com",
-        authorize_url: "https://api.login.yahoo.com/oauth2/request_auth",
-        token_url: "https://api.login.yahoo.com/oauth2/get_token"
+        site: 'https://api.login.yahoo.com',
+        authorize_url: 'https://api.login.yahoo.com/oauth2/request_auth',
+        token_url: 'https://api.login.yahoo.com/oauth2/get_token'
       }
 
       uid { access_token.params['xoauth_yahoo_guid'] }
@@ -79,7 +79,6 @@ module OmniAuth
       end
 
       def get_user_image
-        debugger
         image_size = options[:image_size]
         if image_size
           image_url = "#{SOCIAL_API_URL}#{uid}/profile/image/#{image_size}?format=json"

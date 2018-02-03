@@ -1,4 +1,4 @@
-require "omniauth/yahoo_auth/version"
+require 'omniauth/yahoo_auth/version'
 require 'omniauth/strategies/yahoo_auth'
 
 # module Omniauth

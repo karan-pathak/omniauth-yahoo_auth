@@ -1,4 +1,6 @@
 # OmniAuth Yahoo OAuth2 Strategy
+[![Gem Version](https://badge.fury.io/rb/omniauth-yahoo_auth.svg)](https://badge.fury.io/rb/omniauth-yahoo_auth)
+[![Build Status](https://travis-ci.org/creative-karan/omniauth-yahoo_auth.svg?branch=master)](https://travis-ci.org/creative-karan/omniauth-yahoo_auth)
 
 Yahoo OAuth2 Strategy for OmniAuth. <br>
 Supports OAuth 2.0 client-side flow. Read about it at: https://developer.yahoo.com/oauth2/guide/
@@ -166,8 +168,8 @@ For your views you can login using:
 Yahoo doesn't allow `localhost or 127.0.0.1` as callback domain while making an app. <br>
 So, you can follow below steps to test this gem on your local environment.
 
-* In case you are using unix or linux system, create a alias like 127.0.0.1 mywebsite.dev in /etc/hosts
- (you need have the line which is similar to above mentioned in the file)
+* In case you are using unix or linux system, create a alias like `127.0.0.1 mywebsite.dev` in /etc/hosts
+ (you need have the line which is similar to the one mentioned here in the file)
 * Use http://website.dev/callbackurl/for/app in call back URL during local testing.
 * You will need to run your rails app at port 80.
 * To forcefully run your app on port 80 use `rvmsudo rails s -p 80`
