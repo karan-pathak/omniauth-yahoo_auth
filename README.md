@@ -51,9 +51,11 @@ For example:
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :yahoo_auth, ENV['YAHOO_APP_ID'], ENV['YAHOO_APP_SECRET'],
-  { name: "yahoo",
-    redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback" }
+  provider :yahoo_auth,
+           ENV['YAHOO_APP_ID'],
+           ENV['YAHOO_APP_SECRET'],
+           name: "yahoo",
+           redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback"
 end
 ```
 
@@ -125,16 +127,16 @@ Then make sure your callbacks controller is setup.
 # app/controllers/users/omniauth_callbacks_controller.rb
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def yahoo_auth
-      # You need to implement the method below in your model (e.g. app/models/user.rb)
-      @user = User.from_omniauth(request.env['omniauth.auth'])
+    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    @user = User.from_omniauth(request.env['omniauth.auth'])
 
-      if @user.persisted?
-        flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Yahoo'
-        sign_in_and_redirect @user, event: :authentication
-      else
-        session['devise.yahoo_data'] = request.env['omniauth.auth']
-        redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
-      end
+    if @user.persisted?
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Yahoo'
+      sign_in_and_redirect @user, event: :authentication
+    else
+      session['devise.yahoo_data'] = request.env['omniauth.auth']
+      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+    end
   end
 end
 ```
@@ -144,16 +146,16 @@ and bind to or create the user
 ```ruby
 # app/models/user.rb
 def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    # Uncomment the section below if you want users to be created if they don't exist
-    # unless user
-    #     user = User.create(name: data['nickname'],
-    #        email: data['email'],
-    #        password: Devise.friendly_token[0,20]
-    #     )
-    # end
-    user
+  data = access_token.info
+  user = User.where(email: data['email']).first
+  # Uncomment the section below if you want users to be created if they don't exist
+  # unless user
+  #     user = User.create(name: data['nickname'],
+  #        email: data['email'],
+  #        password: Devise.friendly_token[0,20]
+  #     )
+  # end
+  user
 end
 ```
 
