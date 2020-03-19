@@ -48,7 +48,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get(USER_INFO_API)
+        @raw_info ||= access_token.get(USER_INFO_API).parsed
       rescue ::Errno::ETIMEDOUT
         raise ::Timeout::Error
       end
