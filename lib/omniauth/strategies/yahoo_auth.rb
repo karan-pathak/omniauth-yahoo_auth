@@ -43,7 +43,7 @@ module OmniAuth
           email_verified: raw_info['email_verified'],
           address: raw_info['address'],
           phone_number: raw_info['phone_number'],
-          phone_number: raw_info['phone_number_verified'],
+          phone_number_verified: raw_info['phone_number_verified'],
         )
       end
 
