@@ -46,7 +46,6 @@ Option name | Default | Explanation
 --- | --- | ---
 `name` | `yahoo_auth` | It can be changed to any value, for example `yahoo`. The OmniAuth URL will thus change to /auth/yahoo .
 `redirect_uri` | `/auth/yahoo/callback` | Specify a custom callback URL used during the server-side flow. Default is `https://www.your_callback_domain/auth/yahoo/callback`
-`image_size` | `192x192` | Set the size for the returned image in the auth hash. Valid options include sizes: 16x16, 24x24, 32x32, 48x48, 64x64, 96x96, 128x128, 192x192
 
 For example:
 
@@ -54,8 +53,7 @@ For example:
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :yahoo_auth, ENV['YAHOO_APP_ID'], ENV['YAHOO_APP_SECRET'],
   { name: "yahoo",
-    redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback",
-    image_size: "96x96"}
+    redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback" }
 end
 ```
 
@@ -79,16 +77,20 @@ Here's an example *Auth Hash* available in `request.env['omniauth.auth']`:
     expires: true # this will always be true.
   },
   extra: {
-      gender: 'M',
-      language: 'en-IN',
-      location: 'User Location',
-      birth_year: 'User birth year',
-      birth_date: 'User birth date',
-      addresses: 'User addresses',
-      urls: {
-        default_image: 'https://s.yimg.com/wm/modern/images/default_user_profile_pic_192.png',
-        profile: 'http://profile.yahoo.com/KBA...'
-      }
+    sub: '',
+    name: '',
+    middle_name: '',
+    nickname: '',
+    gender: 'M',
+    language: 'en-IN',
+    website: '',
+    birth_date: '',
+    zone_info: '',
+    updated_at: '',
+    email_verified: true,
+    address: '',
+    phone_number: '',
+    phone_number_verified: false,
   }
 }
 ```
