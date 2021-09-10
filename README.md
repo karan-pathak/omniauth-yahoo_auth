@@ -46,16 +46,16 @@ Option name | Default | Explanation
 --- | --- | ---
 `name` | `yahoo_auth` | It can be changed to any value, for example `yahoo`. The OmniAuth URL will thus change to /auth/yahoo .
 `redirect_uri` | `/auth/yahoo/callback` | Specify a custom callback URL used during the server-side flow. Default is `https://www.your_callback_domain/auth/yahoo/callback`
-`image_size` | `192x192` | Set the size for the returned image in the auth hash. Valid options include sizes: 16x16, 24x24, 32x32, 48x48, 64x64, 96x96, 128x128, 192x192
 
 For example:
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :yahoo_auth, ENV['YAHOO_APP_ID'], ENV['YAHOO_APP_SECRET'],
-  { name: "yahoo",
-    redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback",
-    image_size: "96x96"}
+  provider :yahoo_auth,
+           ENV['YAHOO_APP_ID'],
+           ENV['YAHOO_APP_SECRET'],
+           name: "yahoo",
+           redirect_uri: "https://www.your_callback_domain/auth/yahoo/callback"
 end
 ```
 
@@ -79,16 +79,20 @@ Here's an example *Auth Hash* available in `request.env['omniauth.auth']`:
     expires: true # this will always be true.
   },
   extra: {
-      gender: 'M',
-      language: 'en-IN',
-      location: 'User Location',
-      birth_year: 'User birth year',
-      birth_date: 'User birth date',
-      addresses: 'User addresses',
-      urls: {
-        default_image: 'https://s.yimg.com/wm/modern/images/default_user_profile_pic_192.png',
-        profile: 'http://profile.yahoo.com/KBA...'
-      }
+    sub: '',
+    name: '',
+    middle_name: '',
+    nickname: '',
+    gender: 'M',
+    language: 'en-IN',
+    website: '',
+    birth_date: '',
+    zone_info: '',
+    updated_at: '',
+    email_verified: true,
+    address: '',
+    phone_number: '',
+    phone_number_verified: false,
   }
 }
 ```
@@ -123,16 +127,16 @@ Then make sure your callbacks controller is setup.
 # app/controllers/users/omniauth_callbacks_controller.rb
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def yahoo_auth
-      # You need to implement the method below in your model (e.g. app/models/user.rb)
-      @user = User.from_omniauth(request.env['omniauth.auth'])
+    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    @user = User.from_omniauth(request.env['omniauth.auth'])
 
-      if @user.persisted?
-        flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Yahoo'
-        sign_in_and_redirect @user, event: :authentication
-      else
-        session['devise.yahoo_data'] = request.env['omniauth.auth']
-        redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
-      end
+    if @user.persisted?
+      flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Yahoo'
+      sign_in_and_redirect @user, event: :authentication
+    else
+      session['devise.yahoo_data'] = request.env['omniauth.auth']
+      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+    end
   end
 end
 ```
@@ -142,16 +146,16 @@ and bind to or create the user
 ```ruby
 # app/models/user.rb
 def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data['email']).first
-    # Uncomment the section below if you want users to be created if they don't exist
-    # unless user
-    #     user = User.create(name: data['nickname'],
-    #        email: data['email'],
-    #        password: Devise.friendly_token[0,20]
-    #     )
-    # end
-    user
+  data = access_token.info
+  user = User.where(email: data['email']).first
+  # Uncomment the section below if you want users to be created if they don't exist
+  # unless user
+  #     user = User.create(name: data['nickname'],
+  #        email: data['email'],
+  #        password: Devise.friendly_token[0,20]
+  #     )
+  # end
+  user
 end
 ```
 
