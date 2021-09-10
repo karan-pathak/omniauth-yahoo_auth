@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Yahoo OAuth2 Strategy for OmniAuth."
   spec.description   = "Yahoo OAuth2 Strategy. Supports OAuth 2.0 client-side flow. It lets you sign-in a rails app using yahoo login."
-  spec.homepage      = "https://github.com/creative-karan/omniauth-yahoo_auth"
+  spec.homepage      = "https://github.com/karan-pathak/omniauth-yahoo_auth"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
