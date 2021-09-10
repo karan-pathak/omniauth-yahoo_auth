@@ -1,6 +1,6 @@
 # OmniAuth Yahoo OAuth2 Strategy
 [![Gem Version](https://badge.fury.io/rb/omniauth-yahoo_auth.svg)](https://badge.fury.io/rb/omniauth-yahoo_auth)
-[![Build Status](https://travis-ci.org/creative-karan/omniauth-yahoo_auth.svg?branch=master)](https://travis-ci.org/creative-karan/omniauth-yahoo_auth)
+[![Build Status](https://travis-ci.org/karan-pathak/omniauth-yahoo_auth.svg?branch=master)](https://travis-ci.org/karan-pathak/omniauth-yahoo_auth)
 
 Yahoo OAuth2 Strategy for OmniAuth. <br>
 Supports OAuth 2.0 client-side flow. Read about it at: https://developer.yahoo.com/oauth2/guide/
